@@ -33,6 +33,6 @@ jobs:
       - name: Deleate and copy files to the AWS S3
         run: |
           aws s3 rm --recursive s3://ua-int-alpacked/*
-          aws s3 sync ${{env.website-dir}/local s3://ua-int-alpacked/.
+          aws s3 sync ${{env.website-dir}}/local s3://ua-int-alpacked/.
         working-directory: ${{env.website-dir}}
       
