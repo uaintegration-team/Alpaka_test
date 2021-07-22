@@ -21,9 +21,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS credentials
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ AWS_ACCESS_KEY_ID }}
@@ -32,9 +29,7 @@ jobs:
       - run: npm ci
         working-directory: ${{env.website-dir}}
       - run: npm build
-        working-directory: ${{env.website-dir}}
-      - name: Configure AWS credentials
-      
+        working-directory: ${{env.website-dir}}  
       - name: Deleate and copy files to the AWS S3
         run: |
           aws s3 rm --recursive s3://ua-int-alpacked/*
