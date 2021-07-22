@@ -8,6 +8,8 @@ on:
 jobs:
  build:
     runs-on: ubuntu-latest
+    env:
+      website-dir: ./website
 
     steps:
       - uses: actions/checkout@v2
@@ -15,4 +17,6 @@ jobs:
         with:
           node-version: 14.x
       - run: npm ci
+        working-directory: ${{env.website-dir}}
       - run: npm build
+        working-directory: ${{env.website-dir}}
