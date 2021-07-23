@@ -1,0 +1,3 @@
+aws-cdk.aws-cloudfront_origins==1.115.0
+aws-cdk.aws-cloudfront==1.115.0
+aws-cdk.aws-s3==1.115.0

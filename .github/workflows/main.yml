@@ -13,7 +13,7 @@ jobs:
       work-dir: .
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT_REGION: eu-central-1    
+      AWS_DEFAULT_REGION: eu-central-1
       CONTENTFUL_ACCESS_TOKEN: ${{ secrets.DELIVERYTOKEN }}
       MANAGEMENTTOKEN: ${{secrets.MANAGEMENTTOKEN }}
       CONTENTFUL_SPACE_ID: ${{ secrets.SPACEID }}
@@ -29,10 +29,9 @@ jobs:
           npm run-script setup -- --managementToken=$MANAGEMENTTOKEN
           npm run-script build
           ls -la
-        working-directory: ${{env.website-dir}}  
+        working-directory: ${{env.website-dir}}
       - name: Delete and copy files to the AWS S3
         run: |
-          aws s3 rm --recursive s3://ua-int-alpacked/*
-          aws s3 sync public s3://ua-int-alpacked/
+          aws s3 rm --recursive s3://ua-int-alpacked-test/*
+          aws s3 sync public s3://ua-int-alpacked-test/
         working-directory: ${{env.website-dir}}
-      
