@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       website-dir: ./website
+      work-dir: .
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       DELIVERYTOKEN : ${{ secrets.DELIVERYTOKEN }}
@@ -29,6 +30,7 @@ jobs:
       - run: npm ci
         working-directory: ${{env.website-dir}}
       - run : auto_nmp_setup.exp ${{env.SPACEID}} ${{ env.MANAGEMENTTOKEN }} ${{ env.DELIVERYTOKEN }}
+        working-directory: ${{env.work-dir}}
       - run: npm run-script build
         working-directory: ${{env.website-dir}}  
       - name: Deleate and copy files to the AWS S3
