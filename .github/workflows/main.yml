@@ -22,20 +22,21 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1    
+#      - uses: aws-actions/configure-aws-credentials@v1
+#        with:
+#          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: eu-central-1    
       - run: npm ci
         working-directory: ${{env.website-dir}}
-      - run : ./auto_nmp_setup.exp ${{env.SPACEID}} ${{ env.MANAGEMENTTOKEN }} ${{ env.DELIVERYTOKEN }}
-        working-directory: ${{env.work-dir}}
-      - run: npm run-script build
+      - run: |
+          npm run-script setup -- --managementToken=$MANAGEMENTTOKEN
+          npm run-script build
+          ls -la
         working-directory: ${{env.website-dir}}  
-      - name: Deleate and copy files to the AWS S3
-        run: |
-          aws s3 rm --recursive s3://ua-int-alpacked/*
-          aws s3 sync ./public s3://ua-int-alpacked/.
-        working-directory: ${{env.website-dir}}
-      
+#       - name: Delete and copy files to the AWS S3
+#         run: |
+#           aws s3 rm --recursive s3://ua-int-alpacked/*
+#           aws s3 sync ./public s3://ua-int-alpacked/.
+#         working-directory: ${{env.website-dir}}
+#       
