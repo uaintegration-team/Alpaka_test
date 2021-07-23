@@ -28,7 +28,8 @@ jobs:
           aws-region: eu-central-1    
       - run: npm ci
         working-directory: ${{env.website-dir}}
-      - run: npm build
+      - run : auto_nmp_setup.exp ${{env.SPACEID}} ${{ env.MANAGEMENTTOKEN }} ${{ env.DELIVERYTOKEN }}
+      - run: npm run-script build
         working-directory: ${{env.website-dir}}  
       - name: Deleate and copy files to the AWS S3
         run: |
