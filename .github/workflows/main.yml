@@ -10,13 +10,29 @@ jobs:
     runs-on: ubuntu-latest
     env:
       website-dir: ./website
-
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      DELIVERYTOKEN : ${{ secrets.DELIVERYTOKEN }}
+      MANAGEMENTTOKEN: ${{secrets.MANAGEMENTTOKEN }}
+      SPACEID: ${{ secrets.SPACEID }}
+      
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: 14.x
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1    
       - run: npm ci
         working-directory: ${{env.website-dir}}
       - run: npm build
+        working-directory: ${{env.website-dir}}  
+      - name: Deleate and copy files to the AWS S3
+        run: |
+          aws s3 rm --recursive s3://ua-int-alpacked/*
+          aws s3 sync ./public s3://ua-int-alpacked/.
         working-directory: ${{env.website-dir}}
+      
