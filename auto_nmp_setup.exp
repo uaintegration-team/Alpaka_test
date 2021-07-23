@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+set ID [lindex $argv 0]
+set ACC_TOKEN [lindex $argv 1]
+set Delivery_token [lindex $argv 2]
+set timeout -1
+spawn npm run setup
+expect "Your Space ID"
+send "$ID\r"
+expect "Your Content Management API access token"
+send "$ACC_TOKEN\r"
+expect "Your Content Delivery API access token"
+send "$Delivery_token\r"
+expect eof
