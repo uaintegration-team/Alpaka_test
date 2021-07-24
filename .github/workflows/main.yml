@@ -3,7 +3,7 @@ name: Build website
 
 on:
   push:
-   branches: [ develop ]
+   branches: [ master ]
 
 jobs:
  build:
