@@ -4,6 +4,7 @@ name: Build website
 on:
   push:
    branches: [ master ]
+   paths: [ 'website/**' ]
 
 jobs:
  build:
