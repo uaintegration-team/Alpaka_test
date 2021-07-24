@@ -22,7 +22,7 @@ class UaIntAlpackedStack(cdk.Stack):
                            website_error_document="404/index.html"
                            )
         cloudfront.Distribution(self,
-            cfront_alpacked",
+            "cfront_alpacked",
             default_behavior=cloudfront.BehaviorOptions(origin=origins.S3Origin(bucket)),
             default_root_object="index.html"
             )
