@@ -3,7 +3,6 @@ from aws_cdk import aws_s3 as s3
 import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_cloudfront_origins as origins
 import aws_cdk.aws_iam as iam
-import json
 # For consistency with other languages, `cdk` is the preferred import name for
 # the CDK's core module.  The following line also imports it as `core` for use
 # with examples from the CDK Developer's Guide, which are in the process of
