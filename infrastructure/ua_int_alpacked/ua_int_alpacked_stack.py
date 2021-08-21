@@ -2,6 +2,7 @@ from aws_cdk import core as cdk
 from aws_cdk import aws_s3 as s3
 import aws_cdk.aws_cloudfront as cloudfront
 import aws_cdk.aws_cloudfront_origins as origins
+import aws_cdk.aws_iam as iam
 # For consistency with other languages, `cdk` is the preferred import name for
 # the CDK's core module.  The following line also imports it as `core` for use
 # with examples from the CDK Developer's Guide, which are in the process of
@@ -25,4 +26,27 @@ class UaIntAlpackedStack(cdk.Stack):
             "cfront_alpacked",
             default_behavior=cloudfront.BehaviorOptions(origin=origins.S3Origin(bucket)),
             default_root_object="index.html"
-            )
+           ) 
+        policy=iam.Policy(self,
+           "S3_acesses",
+           policy_name="S3_acsses",
+           statements=[iam.PolicyStatement(
+                         effect=iam.Effect.ALLOW,
+                         actions=[
+                                  "s3:PutObject",
+                                  "s3:GetObject",
+                                  "s3:ListBucket",
+                                  "s3:DeleteObject"
+                                  ],
+                         resources=[
+                             "arn:aws:s3:::*/*", 
+                             "arn:aws:s3:::ua-int-alpacked-test"
+                             ]
+                                 )]
+                       
+                   )
+        user=iam.User(self,
+           "My test user",
+           user_name="Test_user"
+           )
+        policy.attach_to_user(user)
